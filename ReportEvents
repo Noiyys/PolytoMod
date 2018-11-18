@@ -1,0 +1,89 @@
+package fr.noiyys.listeners;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+
+public class ReportEvents implements Listener {
+
+	@EventHandler
+	public void onClick(InventoryClickEvent e) {
+		if(e.getCurrentItem() == null) return;
+		
+		Player p = (Player) e.getWhoClicked();
+		
+		switch(e.getCurrentItem().getType()) {
+		
+			case IRON_SWORD:
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§cCheat")) {
+					e.setCancelled(true);
+					p.closeInventory();
+					sendToMods(e.getCurrentItem().getItemMeta().getDisplayName(), e.getInventory().getName().substring(12));
+					p.sendMessage("§c[§6PolytoReport§c] §aVous avez bien signalé ce joueur !");
+				}
+				break;
+				
+			case PAPER:
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§cSpam/Flood")) {
+					e.setCancelled(true);
+					p.closeInventory();
+					sendToMods(e.getCurrentItem().getItemMeta().getDisplayName(), e.getInventory().getName().substring(12));
+					p.sendMessage("§c[§6PolytoReport§c] §aVous avez bien signalé ce joueur !");
+				}
+				break;
+				
+			case BOOK:
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§cLangage inapproprié")) {
+					e.setCancelled(true);
+					p.closeInventory();
+					sendToMods(e.getCurrentItem().getItemMeta().getDisplayName(), e.getInventory().getName().substring(12));
+					p.sendMessage("§c[§6PolytoReport§c] §aVous avez bien signalé ce joueur !");
+				}
+				break;
+				
+			case TNT:
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§cMenace")) {
+					e.setCancelled(true);
+					p.closeInventory();
+					sendToMods(e.getCurrentItem().getItemMeta().getDisplayName(), e.getInventory().getName().substring(12));
+					p.sendMessage("§c[§6PolytoReport§c] §aVous avez bien signalé ce joueur !");
+				}
+				break;
+				
+			case END_CRYSTAL:
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§cDouble compte")) {
+					e.setCancelled(true);
+					p.closeInventory();
+					sendToMods(e.getCurrentItem().getItemMeta().getDisplayName(), e.getInventory().getName().substring(12));
+					p.sendMessage("§c[§6PolytoReport§c] §aVous avez bien signalé ce joueur !");
+				}
+				break;
+				
+			case ARROW:
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equals("§cAutre")) {
+					e.setCancelled(true);
+					p.closeInventory();
+					sendToMods(e.getCurrentItem().getItemMeta().getDisplayName(), e.getInventory().getName().substring(12));
+					p.sendMessage("§c[§6PolytoReport§c] §aVous avez bien signalé ce joueur !");
+				}
+				break;
+		
+			default: break;
+		
+		}
+	}
+
+	private void sendToMods(String raison, String targetName) {
+		
+		for(Player players : Bukkit.getOnlinePlayers()) {
+			if(players.hasPermission("mod.receive")) {
+				players.sendMessage("§c[§6PolytoReport§c] §6Le joueur §c" + targetName + " §6a été signalé pour : §c" + raison);
+				
+			}
+		}
+		
+	}
+	
+}
